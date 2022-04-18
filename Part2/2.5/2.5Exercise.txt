@@ -1,0 +1,1 @@
+C:\Users\lyytijo\Projects\omat\devops with docker\2.5>docker-compose up --scale compute=3

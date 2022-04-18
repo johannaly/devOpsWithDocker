@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: ml-kurkkumopo-frontend
+    build: .
+    container_name: frontend_kurkkumopo
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:5000
+   
+
+  backend:
+    image: ml-kurkkumopo-backend
+    build: .
+    container_name: backend_kurkkumopo
+    ports:
+      - 5000:5000
+    environment:
+      - REQUEST_ORIGIN=http://localhost:3000
+    depends_on:
+      - training
+    volumes: 
+      - model:/src/model
+    
+  
+  training:
+    image: ml-kurkkumopo-training
+    build: .
+    container_name: training_kurkkumopo
+    volumes:
+      - images:/src/imgs
+      - data:/src/data
+      - model:/src/model
+
+volumes:
+  images:
+  data:
+  model:
+  
